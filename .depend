@@ -1,0 +1,2 @@
+test_sort.o: test_sort.c vector.h
+vector.o: vector.c vector.h
