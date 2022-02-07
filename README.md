@@ -1,5 +1,12 @@
 # VectorAndList project
 
+## How to build our project:
+```
+$ mkdir build && cd build
+$ cmake ..
+$ make
+```
+
 | функция | прототип |
 | :---: | :---: |
 | конструктор | struct **_name_** * **_name_**_create () |
