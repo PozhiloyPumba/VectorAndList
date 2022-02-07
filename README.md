@@ -5,8 +5,8 @@
 | конструктор | struct **_name_** * **_name_**_create () |
 | добавление элемента в конец | int **_name_**_push_back (struct **_name_** *p, Type value) |
 | печать | void **_name_**_dump (const struct **_name_** *p) |
-| получить i_ый элемент | Type **_name_**_get_i_th (const struct **_name_** *p, size_t i) |
-| установить i_ый элемент | void **_name_**_set_i_th (const struct **_name_** *p, Type value, size_t i) |
+| получить i_ый элемент | Type **_name_**_get_i_th (const struct **_name_** *p, size_t i, int *err) |
+| установить i_ый элемент | int **_name_**_set_i_th (const struct **_name_** *p, Type value, size_t i) |
 | получить размер | size_t **_name_**_get_size (const struct **_name_** *p) |
 | деструктор | void **_name_**_destroy (struct **_name_** *p) |
 
