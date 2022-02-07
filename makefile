@@ -1,3 +1,4 @@
+CC = gcc
 CFLAGS = -Wall -Wextra -O2
 
 all: test_vector test_list
