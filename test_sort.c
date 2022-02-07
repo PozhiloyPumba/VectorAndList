@@ -35,10 +35,11 @@ int main ()
 void insertion_sort (struct vector *vec)
 {
     size_t size = vector_get_size (vec);
+    int err;
 
     for (size_t i = 0; i < size; ++i) {
         for (size_t j = i; j > 0; --j) {
-            if (vector_get_i_th (vec, j - 1) <= vector_get_i_th (vec, j))
+            if (vector_get_i_th (vec, j - 1, &err) <= vector_get_i_th (vec, j, &err))
                 break;
 
             swap (vec, j - 1, j);
@@ -48,7 +49,8 @@ void insertion_sort (struct vector *vec)
 
 void swap (struct vector *vec, size_t first, size_t second)
 {
-    Type tmp = vector_get_i_th (vec, first);
-    vector_set_i_th (vec, vector_get_i_th (vec, second), first);
+    int err;
+    Type tmp = vector_get_i_th (vec, first, &err);
+    vector_set_i_th (vec, vector_get_i_th (vec, second, &err), first);
     vector_set_i_th (vec, tmp, second);
 }
