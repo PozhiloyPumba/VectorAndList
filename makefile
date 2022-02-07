@@ -1,8 +1,11 @@
 CFLAGS = -Wall -Wextra -O2
 
-all: test
+all: test_vector test_list
 
-test: vector.o test_sort.o
+test_vector: vector.o test_vector.o
+	$(CC) $(CFLAGS) $^ -o $@
+
+test_list: list.o test_list.o
 	$(CC) $(CFLAGS) $^ -o $@
 
 clean:
