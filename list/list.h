@@ -4,19 +4,7 @@
 
 typedef int Type;
 
-struct node_struct {
-    Type val;
-    struct node_struct* prev;
-    struct node_struct* next;
-};
-
 typedef struct node_struct node_type;
-
-struct list_struct {
-    node_type* head;
-    node_type* tail;
-    size_t size;
-};
 
 typedef struct list_struct list_type;
 

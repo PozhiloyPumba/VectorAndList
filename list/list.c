@@ -2,6 +2,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+struct node_struct {
+    Type val;
+    struct node_struct* prev;
+    struct node_struct* next;
+};
+
+struct list_struct {
+    node_type* head;
+    node_type* tail;
+    size_t size;
+};
+
 list_type* list_create(){
     list_type* list_ptr = malloc(sizeof(list_type));
 
