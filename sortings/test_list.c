@@ -46,7 +46,7 @@ void bubble_sort(list_type* list_ptr){
     while(1){
         int sort_done = 0;
         
-        for(size_t i = 0; i < (list_ptr -> size) - 1; i++){
+        for(size_t i = 0; i < (list_get_size(list_ptr)) - 1; i++){
             if (list_get_i_th(list_ptr, i + 1, &err) < list_get_i_th(list_ptr, i, &err)) {
                 sort_done = 1;
                 swap(list_ptr, i, i + 1);
