@@ -17,3 +17,5 @@ typedef struct base {
 typedef struct container {
     base *m;
 } container;
+
+container *vector_create ();
