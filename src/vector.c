@@ -3,6 +3,7 @@
 const Type poison = 0xDEADBEEF;
 
 struct vector{
+    struct base m;
     Type *arr_;
     size_t capacity_;
     size_t size_;
