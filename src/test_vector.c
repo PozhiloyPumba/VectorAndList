@@ -3,9 +3,9 @@
 
 #include "vector.h"
 
-void insertion_sort (struct vector *vec);
+void insertion_sort (container *obj);
 
-void swap (struct vector *vec, size_t first, size_t second);
+void swap (container *obj, size_t first, size_t second);
 
 int main ()
 {
@@ -13,44 +13,46 @@ int main ()
     int err = scanf ("%ld", &size);
     assert (err);
 
-    struct vector *vec = vector_create ();
+    container *obj = vector_create ();
 
     Type value;
     for (size_t i = 0; i < size; ++i) {
         err = scanf ("%d", &value);
         assert (err);
-        vector_push_back (vec, value);
+        obj->m->push_back (obj, value);
     }
 
-    insertion_sort (vec);
+    insertion_sort (obj);
 
-    vector_dump (vec);
+    for (size_t i = 0; i < size; ++i)
+        printf ("%d ", obj->m->get_i_th (obj, i, &err));
+
     printf ("\n");
 
-    vector_destruct (vec);
+    obj->m->destroy (obj);
 
     return 0;
 }
 
-void insertion_sort (struct vector *vec)
+void insertion_sort (container *obj)
 {
-    size_t size = vector_get_size (vec);
+    size_t size = obj->m->get_size (obj);
     int err;
 
     for (size_t i = 0; i < size; ++i) {
         for (size_t j = i; j > 0; --j) {
-            if (vector_get_i_th (vec, j - 1, &err) <= vector_get_i_th (vec, j, &err))
+            if (obj->m->get_i_th (obj, j - 1, &err) <= obj->m->get_i_th (obj, j, &err))
                 break;
 
-            swap (vec, j - 1, j);
+            swap (obj, j - 1, j);
         }
     }
 }
 
-void swap (struct vector *vec, size_t first, size_t second)
+void swap (container *obj, size_t first, size_t second)
 {
     int err;
-    Type tmp = vector_get_i_th (vec, first, &err);
-    vector_set_i_th (vec, vector_get_i_th (vec, second, &err), first);
-    vector_set_i_th (vec, tmp, second);
+    Type tmp = obj->m->get_i_th (obj, first, &err);
+    obj->m->set_i_th (obj, obj->m->get_i_th (obj, second, &err), first);
+    obj->m->set_i_th (obj, tmp, second);
 }
