@@ -7,7 +7,7 @@ set (LIST_TEST "list_test")
 
 set (HEADERS
     include/list.h
-    include/vector.h
+    include/common.h
 )
 
 set (LIST_SOURCES
