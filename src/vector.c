@@ -27,18 +27,24 @@ container *vector_create ()
     container *cont = malloc (sizeof (container) + sizeof (struct vector));
     if (!cont)
         return NULL;
+    
     cont->m = malloc (sizeof (base));
+    if (!cont->m) {
+        free (cont);
+        return NULL;
+    }
 
     struct vector *vec = (struct vector *)((container *)cont + 1);
 
-    vec->size_ = 0;
-    vec->capacity_ = 1;
-    vec->arr_ = malloc (sizeof (Type) * vec->capacity_);
-    
+    vec->arr_ = malloc (sizeof (Type)); // 1 elem
     if (!vec->arr_) {
-        free (vec);
+        free (cont->m);
+        free (cont);
         return NULL;
     }
+
+    vec->size_ = 0;
+    vec->capacity_ = 1;
     cont->m->push_back  = &vector_push_back;
     cont->m->get_i_th   = &vector_get_i_th;
     cont->m->get_size   = &vector_get_size;
