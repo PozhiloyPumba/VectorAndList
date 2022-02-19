@@ -1,6 +1,17 @@
-#include "list.h"
+#include "common.h"
 #include <stdio.h>
 #include <stdlib.h>
+
+typedef struct node_struct node_type;
+
+typedef struct list_struct list_type;
+
+int list_push_back(container* cont_ptr, Type value);
+Type list_get_i_th(const container* cont_ptr, size_t i, int* err);
+int list_set_i_th(const container* cont_ptr, Type value, size_t i);
+size_t list_get_size(const container* cont_ptr);
+void list_destroy(container* cont_ptr);
+
 
 struct node_struct {
     Type val;
@@ -9,25 +20,34 @@ struct node_struct {
 };
 
 struct list_struct {
+    struct base m;
     node_type* head;
     node_type* tail;
     size_t size;
 };
 
-list_type* list_create(){
-    list_type* list_ptr = malloc(sizeof(list_type));
-
-    if (list_ptr == NULL) 
+container* list_create(){
+    container* cont = malloc(sizeof(container) + sizeof(list_type));
+    if (cont == NULL) 
         return NULL;
+    cont -> m = malloc(sizeof(base));
+    list_type* list_ptr = (list_type*) (cont + 1);
 
     list_ptr -> head = NULL;
     list_ptr -> tail = NULL;
     list_ptr -> size = 0;
 
-    return list_ptr;
+    cont->m->push_back  = &list_push_back;
+    cont->m->get_i_th   = &list_get_i_th;
+    cont->m->get_size   = &list_get_size;
+    cont->m->set_i_th   = &list_set_i_th;
+    cont->m->destroy    = &list_destroy;
+
+    return cont;
 }
 
-void list_destroy(list_type* list_ptr){
+void list_destroy(container* cont_ptr){
+    list_type* list_ptr = (list_type*) (cont_ptr + 1);
     node_type* node_ptr = list_ptr -> head;
     if (list_ptr -> size == 0) {
         free(list_ptr);
@@ -44,7 +64,8 @@ void list_destroy(list_type* list_ptr){
     free(list_ptr);
 }
 
-int list_push_back(list_type* list_ptr, Type value){
+int list_push_back(container* cont_ptr, Type value){
+    list_type* list_ptr = (list_type*) (cont_ptr + 1);
     node_type* new_node = malloc(sizeof(node_type));
     if (new_node == NULL) {
         printf("Memory allocation error\n");
@@ -62,15 +83,8 @@ int list_push_back(list_type* list_ptr, Type value){
     return 0;
 }
 
-void list_dump(const list_type* list_ptr){
-    node_type* node_ptr = list_ptr -> head;
-    for(size_t i = 0; i < (list_ptr -> size); i++){
-        printf("[%ld] %d\n", i, node_ptr -> val);
-        node_ptr = node_ptr -> next;
-    }
-}
-
-Type list_get_i_th(const list_type* list_ptr, size_t i, int* err){
+Type list_get_i_th(const container* cont_ptr, size_t i, int* err){
+    list_type* list_ptr = (list_type*) (cont_ptr + 1);
     if (i > list_ptr -> size) {
         *err = 0xDEDBEEF;
         return 0;
@@ -82,7 +96,8 @@ Type list_get_i_th(const list_type* list_ptr, size_t i, int* err){
     return (node_ptr -> val);
 }
 
-int list_set_i_th(const list_type* list_ptr, Type value, size_t i){
+int list_set_i_th(const container* cont_ptr, Type value, size_t i){
+    list_type* list_ptr = (list_type*) (cont_ptr + 1);
     if (i > list_ptr -> size) {
         return -1;
     }   
@@ -94,7 +109,8 @@ int list_set_i_th(const list_type* list_ptr, Type value, size_t i){
     return 0;
 }
 
-size_t list_get_size(const list_type* list_ptr){
+size_t list_get_size(const container* cont_ptr){
+    list_type* list_ptr = (list_type*) (cont_ptr + 1);
     return (list_ptr -> size);    
 }
 
