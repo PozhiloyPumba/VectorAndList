@@ -2,8 +2,10 @@ cmake_minimum_required (VERSION 3.0)
 
 project (listAndVector VERSION 1.0)
 
-set (VECTOR_TEST "vector_test")
-set (LIST_TEST "list_test")
+set (VECTOR_TEST "vector_on_test_vector")
+set (LIST_TEST "list_on_test_list")
+set (CROSS_LIST_TEST "list_on_test_vector")
+set (CROSS_VECTOR_TEST "vector_on_test_list")
 
 set (HEADERS
     include/list.h
@@ -28,9 +30,13 @@ set (VECTOR_SORT
 
 add_executable(${VECTOR_TEST} ${VECTOR_SORT} ${VECTOR_SOURCES})
 add_executable(${LIST_TEST} ${LIST_SORT} ${LIST_SOURCES})
+add_executable(${CROSS_VECTOR_TEST} ${LIST_SORT} ${VECTOR_SOURCES})
+add_executable(${CROSS_LIST_TEST} ${VECTOR_SORT} ${LIST_SOURCES})
 
 target_include_directories(${VECTOR_TEST} PRIVATE include)
 target_include_directories(${LIST_TEST} PRIVATE include)
+target_include_directories(${CROSS_VECTOR_TEST} PRIVATE include)
+target_include_directories(${CROSS_LIST_TEST} PRIVATE include)
 
 set (COMPILER_SETTINGS
     -Wall
@@ -39,5 +45,11 @@ set (COMPILER_SETTINGS
     -O2
 )
 
-target_compile_options(${VECTOR_TEST} PRIVATE ${COMPILER_SETTINGS})
+set (VECTOR_DEF
+    -DVECTOR
+)
+
+target_compile_options(${VECTOR_TEST} PRIVATE ${COMPILER_SETTINGS} ${VECTOR_DEF})
 target_compile_options(${LIST_TEST} PRIVATE ${COMPILER_SETTINGS})
+target_compile_options(${CROSS_VECTOR_TEST} PRIVATE ${COMPILER_SETTINGS} ${VECTOR_DEF})
+target_compile_options(${CROSS_LIST_TEST} PRIVATE ${COMPILER_SETTINGS})
