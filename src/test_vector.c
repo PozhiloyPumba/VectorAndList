@@ -3,17 +3,25 @@
 
 #include "common.h"
 
+
 void insertion_sort (container *obj);
 
 void swap (container *obj, size_t first, size_t second);
 
+void dump(container* obj);
+
+
 int main ()
 {
+    #ifdef VECTOR
+        container *obj = vector_create ();
+    #else
+        container *obj = list_create ();
+    #endif
+ 
     size_t size;
     int err = scanf ("%ld", &size);
     assert (err);
-
-    container *obj = vector_create ();
 
     Type value;
     for (size_t i = 0; i < size; ++i) {
@@ -22,12 +30,12 @@ int main ()
         obj->m->push_back (obj, value);
     }
 
+    printf("Unsorted:\n");
+    dump(obj);
     insertion_sort (obj);
 
-    for (size_t i = 0; i < size; ++i)
-        printf ("%d ", obj->m->get_i_th (obj, i, &err));
-
-    printf ("\n");
+    printf("Sorted:\n");
+    dump(obj);
 
     obj->m->destroy (obj);
 
@@ -55,4 +63,15 @@ void swap (container *obj, size_t first, size_t second)
     Type tmp = obj->m->get_i_th (obj, first, &err);
     obj->m->set_i_th (obj, obj->m->get_i_th (obj, second, &err), first);
     obj->m->set_i_th (obj, tmp, second);
+}
+
+void dump(container* obj)
+{
+    int err = 0;
+    for(size_t i = 0; i < (obj->m->get_size(obj)); i++) {
+        printf("%d ", obj->m->get_i_th(obj, i, &err));
+        if (err)
+            return;
+    }
+    printf ("\n");
 }

@@ -6,12 +6,20 @@ int swap(container* list_ptr, size_t first, size_t second);
 void dump(container* cont);
 
 int main(){
-    
-    container* cont_ptr = list_create();
+    #ifdef VECTOR
+        container *cont_ptr = vector_create ();
+    #else
+        container *cont_ptr = list_create ();
+    #endif
 
-    for (int i = 0; i < 10; i++) {
+    size_t size;
+    int err = scanf ("%ld", &size);
+    if (err <= 0) 
+        return -1;
+    
+    for (size_t i = 0; i < size; i++) {
         int val;
-        int err = scanf("%d", &val);
+        err = scanf("%d", &val);
         if (err <= 0) 
             return -1;
         cont_ptr -> m -> push_back(cont_ptr, val);
@@ -23,6 +31,8 @@ int main(){
 
     printf("\n Sorted:\n");
     dump(cont_ptr);
+
+    cont_ptr -> m -> destroy(cont_ptr);
 
     return 0;
 }
