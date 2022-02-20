@@ -50,7 +50,8 @@ void list_destroy(container* cont_ptr){
     list_type* list_ptr = (list_type*) (cont_ptr + 1);
     node_type* node_ptr = list_ptr -> head;
     if (list_ptr -> size == 0) {
-        free(list_ptr);
+        free(cont_ptr -> m);
+        free(cont_ptr);
         return;
     }
     while(1){
@@ -61,7 +62,9 @@ void list_destroy(container* cont_ptr){
         node_ptr = node_ptr -> next;
         free(node_ptr -> prev);
     }
-    free(list_ptr);
+
+    free(cont_ptr -> m);
+    free(cont_ptr);
 }
 
 int list_push_back(container* cont_ptr, Type value){
