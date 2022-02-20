@@ -8,12 +8,12 @@ $ make
 ```
 
 ## After build you will get 4 exec files:
-- vector_on_test_vector
-- list_on_test_list
-- list_on_test_vector
-- vector_on_test_list
+- vector_on_insertion_sort
+- list_on_bubble_sort
+- list_on_insertion_sort
+- vector_on_bubble_sort
 
-## and it is all combinations of build two realization and two sort with our vector and list.
+## and it is all combinations of build two realizations and two sorts with our vector and list.
 
 ## This is table of our methods:
 

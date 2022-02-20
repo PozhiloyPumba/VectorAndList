@@ -2,10 +2,10 @@ cmake_minimum_required (VERSION 3.0)
 
 project (listAndVector VERSION 1.0)
 
-set (VECTOR_TEST "vector_on_test_vector")
-set (LIST_TEST "list_on_test_list")
-set (CROSS_LIST_TEST "list_on_test_vector")
-set (CROSS_VECTOR_TEST "vector_on_test_list")
+set (VECTOR_TEST "vector_on_insertion_sort")
+set (LIST_TEST "list_on_bubble_sort")
+set (CROSS_LIST_TEST "list_on_insertion_sort")
+set (CROSS_VECTOR_TEST "vector_on_bubble_sort")
 
 set (HEADERS
     include/list.h
